@@ -1,0 +1,48 @@
+# YOLOv11 Crack Detection - SAFE FALLBACK VERSION
+# Uses C2f instead of C3k2 for maximum compatibility
+# All channel counts verified and tested
+
+nc: 1  # number of classes (crack)
+depth_multiple: 0.33
+width_multiple: 0.50
+
+# Backbone using C2f (more compatible than C3k2)
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 2]]  # 0-P1/2
+  - [-1, 1, Conv, [128, 3, 2]]  # 1-P2/4
+  - [-1, 2, C2f, [256, True]]  # 2 → 128 channels (with width_multiple=0.5)
+  - [-1, 1, CrackCBAM, [128]]  # 3 - Multi-scale spatial attention
+
+  - [-1, 1, Conv, [256, 3, 2]]  # 4-P3/8
+  - [-1, 2, C2f, [512, True]]  # 5 → 256 channels
+  - [-1, 1, CrackCoordinateAttention, [256]]  # 6 - Directional attention
+
+  - [-1, 1, Conv, [512, 3, 2]]  # 7-P4/16
+  - [-1, 2, C2f, [512, True]]  # 8 → 256 channels
+
+  - [-1, 1, Conv, [1024, 3, 2]]  # 9-P5/32
+  - [-1, 2, C2f, [1024, True]]  # 10 → 512 channels
+  - [-1, 1, SPPF, [1024, 5]]  # 11 → 512 channels
+  - [-1, 1, CrackASPP, [512]]  # 12 - Multi-scale context
+
+# Head
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]  # 13
+  - [[-1, 8], 1, Concat, [1]]  # 14 cat backbone P4
+  - [-1, 2, C2f, [512, False]]  # 15 → 256 channels
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]  # 16
+  - [[-1, 5], 1, Concat, [1]]  # 17 cat backbone P3
+  - [-1, 2, C2f, [256, False]]  # 18 (P3) → 128 channels
+  - [-1, 1, LightCrackCBAM, [128]]  # 19 - Lightweight attention
+
+  - [-1, 1, Conv, [256, 3, 2]]  # 20
+  - [[-1, 15], 1, Concat, [1]]  # 21 cat head P4
+  - [-1, 2, C2f, [512, False]]  # 22 (P4) → 256 channels
+
+  - [-1, 1, Conv, [512, 3, 2]]  # 23
+  - [[-1, 12], 1, Concat, [1]]  # 24 cat head P5
+  - [-1, 2, C2f, [1024, True]]  # 25 (P5) → 512 channels
+
+  - [[19, 22, 25], 1, Detect, [nc]]  # 26 Detect(P3, P4, P5)

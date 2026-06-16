@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model checkpoints
+# The Swin .pth files are >300MB each — too large for GitHub.
+# Download them from the release page or dataset repo.
+*.pth
+
+# Training runs (auto-generated)
+runs/
+
+# YOLO cache
+*.cache
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
