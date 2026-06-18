@@ -2,6 +2,12 @@
 
 **YOLOv12 + Attention vs Swin Transformer for crack detection and segmentation in concrete structures.**
 
+---
+This code accompanies a manuscript currently under review. The citation will be updated upon publication. 
+
+本代码随附于一篇目前正在审稿中的论文。论文发表后，引用信息将予以更新。
+---
+
 **Authors:** [Praise O. Arowolo](https://github.com/Hhhpraise) & Ellie Akahoho Banks
 
 [![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
