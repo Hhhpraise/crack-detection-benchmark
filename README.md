@@ -2,6 +2,8 @@
 
 **YOLOv12 + Attention vs Swin Transformer for crack detection and segmentation in concrete structures.**
 
+**Authors:** [Praise O. Arowolo](https://github.com/Hhhpraise) & Ellie Akahoho Banks
+
 [![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![Ultralytics](https://img.shields.io/badge/Ultralytics-8.0+-00b894.svg)](https://github.com/ultralytics/ultralytics)
@@ -328,7 +330,7 @@ If you use this code or benchmark in your research, please cite:
 
 ```bibtex
 @misc{crack-detection-benchmark,
-  author = {Hhhpraise},
+  author = {Arowolo, Praise O. and Banks, Ellie Akahoho},
   title  = {Crack Detection Benchmark: YOLOv12+Attention vs Swin Transformer},
   year   = {2025},
   url    = {https://github.com/Hhhpraise/crack-detection-benchmark}
